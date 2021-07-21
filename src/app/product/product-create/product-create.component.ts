@@ -8,15 +8,25 @@ import {ProductService} from '../../product.service';
   styleUrls: ['./product-create.component.css']
 })
 export class ProductCreateComponent implements OnInit {
-
   product: Product = {};
+  isSubmitted = false;
+  message = "";
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
   }
-  createProduct() {
-  this.productService.save(this.product).subscribe();
-  this.product = {};
+  createProduct(createForm) {
+    this.isSubmitted = true;
+    if(createForm.valid){
+      this.productService.save(createForm.value).subscribe(() => {
+        this.message = " create success";
+        this.product = {};
+        this.isSubmitted = false;
+      },() =>  this.message = "create failed");
+    }else {
+      this.message = " data invalidate"
+    }
+
   }
 
 }

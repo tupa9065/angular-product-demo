@@ -1,15 +1,23 @@
 <h1>Form Create Product</h1>
 <a routerLink="/products">product list</a>
 
-<form (ngSubmit)="createProduct()">
+<form #createForm="ngForm" (ngSubmit)="createProduct(createForm)">
+  <p>{{message}}</p>
   <table>
     <tr>
       <td>Name:</td>
-      <td><input type="text" name="name" [(ngModel)]="product.name"></td>
+      <td><input type="text" #name="ngModel"name="name" required minlength="6"[(ngModel)]="product.name"></td>
+      <td *ngIf="createForm.invalid&& name.touched&&isSubmitted">
+        <p *ngIf="name.errors?.required">is not null</p>
+        <p *ngIf="name.errors?.minlength">length greater than 5 characters </p>
+      </td>
     </tr>
     <tr>
       <td>Price:</td>
-      <td><input type="text" name="price" [(ngModel)]="product.price"></td>
+      <td><input type="number" step="any" #price="ngModel" name="price" required min="1" [(ngModel)]="product.price" ></td>
+      <td *ngIf="createForm.invalid&& price.touched&&isSubmitted">
+        <p *ngIf="price.errors?.required">is not null</p>
+        <p *ngIf="price.errors?.min">value greater than 0 </p>
     </tr>
     <tr>
       <td>Description:</td>

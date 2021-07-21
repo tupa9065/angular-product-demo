@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Product} from '../../model/product';
+import {ProductService} from '../../product.service';
 
 @Component({
   selector: 'app-product-create',
@@ -7,22 +8,15 @@ import {Product} from '../../model/product';
   styleUrls: ['./product-create.component.css']
 })
 export class ProductCreateComponent implements OnInit {
-  @Output()
-  addEvent = new EventEmitter<Product>();
 
   product: Product = {};
-  constructor() { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit() {
   }
   createProduct() {
-    const newProduct: Product = {
-      id: this.product.id,
-      name: this.product.name,
-      price: this.product.price,
-      description: this.product.description
-    };
-    this.addEvent.emit(newProduct);
+  this.productService.save(this.product).subscribe();
+  this.product = {};
   }
 
 }

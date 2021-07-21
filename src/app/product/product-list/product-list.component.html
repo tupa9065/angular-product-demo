@@ -1,5 +1,5 @@
 <h1>Đây là Product List Component</h1>
-<button (click)="showProductCreateForm()">Create product</button>
+<a routerLink="/products/create">create</a>
 <table>
   <tr>
     <th>#</th>
@@ -11,13 +11,12 @@
   </tr>
   <tr *ngFor="let product of products; index as i">
     <td>{{i + 1}}</td>
-    <td>{{product.name}}</td>
+    <td><a routerLink="/products/{{product.id}}">{{product.name}}</a></td>
     <td>{{product.price}}</td>
     <td>{{product.description}}</td>
-    <td><button (click)="showProductEditForm(i)">Edit</button></td>
-    <td><button (click)="deleteProduct(i)">Delete</button></td>
+    <td><a routerLink="/products/edit/{{product.id}}">Edit</a></td>
+    <td><button (click)="delete(product.id)">delete</button></td>
   </tr>
 </table>
-<app-product-create *ngIf="isShowedFormCreate" (addEvent)="addToList($event)"></app-product-create>
-<app-product-edit *ngIf="isShowedFormUpdate" [product]="products[productCurrentIndex]"></app-product-edit>
+
 

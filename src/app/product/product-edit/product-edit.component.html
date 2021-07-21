@@ -1,9 +1,11 @@
 <h1>Form Edit Product</h1>
-<form >
+<a routerLink="/products">product list</a>
+<p>{{message}}</p>
+<form (ngSubmit)="updateProduct(product.id)">
   <table>
     <tr>
-      <td>Id:</td>
-      <td><input type="number" name="id" [(ngModel)]="product.id"></td>
+      <td></td>
+      <td><input type="hidden" name="id" [(ngModel)]="product.id"></td>
     </tr>
     <tr>
       <td>Name:</td>
@@ -19,7 +21,9 @@
     </tr>
     <tr>
       <td></td>
-      <td><button>Edit</button></td>
+      <td>
+        <button >Edit</button>
+      </td>
     </tr>
   </table>
 </form>
